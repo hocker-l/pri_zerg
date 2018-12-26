@@ -12,3 +12,7 @@
 use  think\Route;
 
 Route::rule("api/:version/banner/:id","api/:version.Banner/banner");
+
+Route::rule("api/:version/theme/:ids","api/:version.Theme/getTheme");
+
+Route::rule("api/:version/recent/:count","api/:version.Product/getRecent");
