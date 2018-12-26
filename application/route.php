@@ -11,4 +11,4 @@
 
 use  think\Route;
 
-Route::rule("api/:version/banner","api/:version.Banner/banner");
+Route::rule("api/:version/banner/:id","api/:version.Banner/banner");

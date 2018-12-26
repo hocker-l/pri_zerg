@@ -11,10 +11,10 @@ namespace app\validate;
 
 use think\Validate;
 
-class IdValidate extends Validate
+class IdValidate extends BaseValidate
 {
     protected $rule=[
-        "id"=>"require|max=1"
+        "id"=>"require|isPositiveInteger"
     ];
 
 

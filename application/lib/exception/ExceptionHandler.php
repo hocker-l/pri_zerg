@@ -22,26 +22,28 @@ class ExceptionHandler extends Handle
     public function render(Exception $e)
     {
         if($e instanceof BaseException){
-            $this->code=$e->code;
+            $this->code=200;
             $this->msg=$e->msg;
             $this->errorCode=$e->errorCode;
         }else{
             if(config("app_debug")){
-                parent::render($e);
+               return parent::render($e);
             }else{
                 $this->code=500;
                 $this->msg="服务器内部错误，不想告诉你";
                 $this->errorCode=999;
                 $this->seveErrorLog($e);
             }
-            $request = Request::instance();
-            $result=[
-                "msg" =>$this->msg,
-                "errorCode" =>$this->errorCode,
-                "url" =>$request->url()
-            ];
-            return json($result,$this->code);
         }
+        $request = Request::instance();
+        $result=[
+            "msg" =>$this->msg,
+            "errorCode" =>$this->errorCode,
+            "url" =>$request->url()
+        ];
+//        echo $e->code;
+//        exit();
+        return json($result,$this->code);
     }
     public function seveErrorLog(Exception $e){
         Log::init([
