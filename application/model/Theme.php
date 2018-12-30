@@ -13,7 +13,7 @@ use app\validate\IdsValidate;
 
 class Theme extends BaseModel
 {
-    protected $hidden=["id","topic_img_id","delete_time","head_img_id","update_time"];
+    protected $hidden=["topic_img_id","delete_time","head_img_id","update_time"];
 
       public function relatedTopicImg(){
           return $this->belongsTo("Image","topic_img_id","id");
