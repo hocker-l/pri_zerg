@@ -17,7 +17,7 @@ class Category extends BaseModel
         return $this->belongsTo("Image","topic_img_id","id");
     }
     public static function allCategory(){
-       $allCategoty = self::with("relatedTopicImg")->select();
+       $allCategoty = self::all([],"relatedTopicImg");
        return $allCategoty;
     }
 

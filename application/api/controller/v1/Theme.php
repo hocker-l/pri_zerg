@@ -12,6 +12,7 @@ namespace app\api\controller\v1;
 use app\lib\exception\ThemeException;
 use \app\model\Theme as themeModel;
 use app\validate\IdsValidate;
+use app\validate\IdValidate;
 
 class Theme
 {
@@ -23,6 +24,14 @@ class Theme
             throw new ThemeException();
         }
        return json($theme);
+    }
+    public function getProductByTheme($id){
+        (new IdValidate())->goCheck();
+        $product = themeModel::getProductByTheme($id);
+        if(!$product){
+            throw new ThemeException();
+        }
+        return json($product);
     }
 
 }

@@ -8,12 +8,16 @@
 
 namespace app\api\controller\v1;
 
+use app\lib\exception\CategoryException;
 use \app\model\Category as categotyModel;
 
 class Category
 {
     function getAllCategoty(){
       $allCategory =  categotyModel::allCategory();
+      if(!$allCategory){
+           throw new CategoryException();
+      }
       return json($allCategory);
     }
 

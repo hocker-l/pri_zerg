@@ -21,9 +21,19 @@ class Theme extends BaseModel
     public function relatedHeadImg(){
         return $this->belongsTo("Image","head_img_id","id");
     }
+    //关联商品表，多对多
+    public function relatedExProduct(){
+        return $this->belongsToMany("Product","theme_product","product_id","theme_id");
+
+    }
       public  static function getThemeByIds($id_arr){
           $theme = self::with(["relatedTopicImg","relatedHeadImg"])->select($id_arr);
           return $theme;
+      }
+      public static function getProductByTheme($id){
+          $product =self::with(["relatedTopicImg","relatedHeadImg","relatedExProduct","relatedExProduct.relatedImage"])
+              ->select($id);
+          return $product;
       }
 
 }
