@@ -27,7 +27,6 @@ class Product
             throw new ProductException();
         }
         return json($products);
-
     }
     public function productById($id){
         (new IdValidate())->goCheck();

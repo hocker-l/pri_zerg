@@ -22,7 +22,7 @@ class ExceptionHandler extends Handle
     public function render(Exception $e)
     {
         if($e instanceof BaseException){
-            $this->code=200;
+            $this->code=$e->code;
             $this->msg=$e->msg;
             $this->errorCode=$e->errorCode;
         }else{
