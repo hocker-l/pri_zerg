@@ -44,5 +44,10 @@ class Product extends BaseModel
             ->select();
         return $product;
     }
+    //通过商品数组ID取得商品信息
+    public static function getProductsByIds($ids){
+        $products =self::all($ids)->visible(['id', 'price', 'stock', 'name', 'main_img_url'])->toArray();
+        return $products;
+    }
 
 }

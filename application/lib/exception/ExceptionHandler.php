@@ -41,8 +41,6 @@ class ExceptionHandler extends Handle
             "errorCode" =>$this->errorCode,
             "url" =>$request->url()
         ];
-//        echo $e->code;
-//        exit();
         return json($result,$this->code);
     }
     public function seveErrorLog(Exception $e){
