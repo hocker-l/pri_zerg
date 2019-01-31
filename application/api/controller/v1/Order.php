@@ -22,10 +22,11 @@ class Order extends BaseController
     public function placeOrder(){
         (new OrderPlace())->goCheck();
         $products =input("post.products/a");
+
         $uid = Token::getCurrentUid();
         $order = new orderService();
         $statues = $order->place($uid,$products);
-        return $statues;
+        return json($statues);
     }
 
 }

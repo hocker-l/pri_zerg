@@ -11,8 +11,10 @@ namespace app\service;
 
 use app\lib\exception\OrderException;
 use app\lib\exception\UserException;
+use app\model\OrderProduct;
 use app\model\Product;
 use app\model\UserAddress;
+use think\Db;
 use think\Exception;
 use app\model\Order as orderModel;
 use app\model\OrderProduct as orderProductModel;
@@ -161,6 +163,7 @@ class Order
     }
 
     public function createOrderByTrans($orderSnap){
+        Db::startTrans();
         try{
             $orderArr=[
                 "order_no" =>$this->makeOrderNo(),
@@ -180,13 +183,14 @@ class Order
                 $p["order_id"] =$order_id;
             }
             orderProductModel::insertOrderProduct($this->oProducts);
+            Db::commit();
             return [
-                "order_no" =>$this->makeOrderNo(),
-                "order_id" =>$this->uid,
-                "create_time" =>$create_time
+                "order_no" =>$orderArr["order_no"],
+                "order_id" =>$order_id,
+                "create_time" =>$create_time            //时间不对
             ];
-
         }catch (Exception $exception){
+            Db::rollback();
             throw  $exception;
         }
     }
@@ -197,6 +201,12 @@ class Order
                 'd') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf(
                 '%02d', rand(0, 99));
         return $orderSn;
+    }
+    public function checkOrderStock($orderID){
+        $this->oProducts =OrderProduct::getoProductById($orderID);
+        $this->products =$this->getProductsByOrder($this->oProducts);
+        $status =$this->getOrderStatus();
+        return $status;
     }
 
 

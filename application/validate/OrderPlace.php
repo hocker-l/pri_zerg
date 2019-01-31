@@ -18,8 +18,8 @@ class OrderPlace extends BaseValidate
         "products" => "checkProducts"
     ];
     protected $singleRule =[
-        "product_id" =>"require|isPositiveInteger",
-        "count" =>"require|isPositiveInteger"
+        "product_id" =>"require",               //这里有问题，加了检测INT类型出错
+        "count" =>"require"
     ];
     protected function checkProducts($values){
         if(empty($values)){
@@ -37,10 +37,11 @@ class OrderPlace extends BaseValidate
         $result =$validate->check($value);
         if(!$result){
             throw new ParameterException([
-                "msg" =>"商品列表参数错误!"
+                "msg" =>$validate->error
             ]);
         }
 
     }
+
 
 }

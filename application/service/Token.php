@@ -108,4 +108,18 @@ class Token
             return false;
         }
     }
+    public static function isValidOperate($checkUID){
+        if(!$checkUID){
+            throw new ParameterException([
+                "msg" =>"缺少参数被检查UID！"
+            ]);
+        }
+        $user_id =self::getCurrentUid();
+        if($user_id ==$checkUID){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }

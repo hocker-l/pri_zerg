@@ -33,7 +33,9 @@ Route::rule("api/:version/address","api/:version.Address/createOrUpdateAddress")
 
 Route::rule("api/:version/getAddress","api/:version.Address/getUserAddress");
 
+Route::rule("api/:version/order","api/:version.Order/placeOrder");
 
+Route::rule("api/:version/pay","api/:version.Pay/getPreOrder");
 
 
 

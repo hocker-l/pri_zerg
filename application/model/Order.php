@@ -16,5 +16,12 @@ class Order extends  BaseModel
         $order->save();
         return $order;
     }
+    public static function getOrderByID($orderID){
+        $order =self::where("id","=",$orderID)->find();
+        return $order;
+    }
+    public static  function updatePrepayID($wxOrder,$orderid){
+        self::where("id","=",$orderid)->update(["prepay_id"=>$wxOrder["prepay_id"]]);
+    }
 
 }
